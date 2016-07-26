@@ -1,18 +1,24 @@
 package com.artoo.bountynotes;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.UiThread;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.artoo.bountynotes.data.NoteItem;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Saurabh on 7/26/2016.
@@ -24,6 +30,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public RecyclerViewAdapter(Context context, List<NoteItem> noteItems) {
         this.mContext = context;
         this.notesList = noteItems;
+    }
+
+    public void setNotesList(List<NoteItem> notes) {
+        this.notesList = notes;
     }
 
     @Override
@@ -38,6 +48,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(SimpleViewHolder holder, int position) {
         holder.mTitle.setText(notesList.get(position).getTitle());
         holder.mDesc.setText(notesList.get(position).getDescription());
+        SimpleDateFormat dateFormat=new SimpleDateFormat("dd MMM", Locale.US);
+        holder.mDate.setText(dateFormat.format(notesList.get(position).getTime()));
+        holder.itemView.setLongClickable(true);
     }
 
     @Override
@@ -50,28 +63,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         notifyDataSetChanged();
     }
 
-    public class SimpleViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class SimpleViewHolder extends RecyclerView.ViewHolder {
         public TextView mTitle;
         public TextView mDesc;
+        public TextView mDate;
 
         public SimpleViewHolder(View itemView) {
             super(itemView);
-            itemView.setOnClickListener(this);
             mTitle = (TextView) itemView.findViewById(R.id.item_title);
             mDesc = (TextView) itemView.findViewById(R.id.item_desc);
-        }
-
-        @Override
-        public void onClick(View view) {
-            NoteItem note = notesList.get(getAdapterPosition());
-            Intent intent = new Intent(mContext, AddNoteActivity.class);
-//            intent.putExtra(NoteItem.KEY, note.getKey());
-            intent.putExtra(NoteItem.ID, note.getId());
-            intent.putExtra(NoteItem.TITLE, note.getTitle());
-            intent.putExtra(NoteItem.DESC, note.getDescription());
-            intent.putExtra(NoteItem.TIME, note.getTime());
-            intent.putExtra(AddNoteActivity.INTENT_MODE_CREATE,false);
-            ((Activity) mContext).startActivityForResult(intent, MainActivity.EDITOR_ACTIVITY_REQUEST);
+            mDate = (TextView) itemView.findViewById(R.id.item_date);
         }
     }
 }

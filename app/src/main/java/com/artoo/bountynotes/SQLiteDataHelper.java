@@ -19,7 +19,6 @@ import java.util.List;
 public class SQLiteDataHelper extends SQLiteOpenHelper {
 
     private static final String TABLE_NAME = "tb_bounty";
-    private final int VERSION = 1;
     private long id;
 
     public SQLiteDataHelper(Context context, String name) {
@@ -70,10 +69,16 @@ public class SQLiteDataHelper extends SQLiteOpenHelper {
         Collections.sort(items, new Comparator<NoteItem>() {
             @Override
             public int compare(NoteItem noteItem, NoteItem t1) {
-                return noteItem.getId()<t1.getId()?1:-1;
+                return noteItem.getId() < t1.getId() ? 1 : -1;
             }
         });
         return items;
+    }
+
+    public boolean deleteNoteItem(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int r = db.delete(TABLE_NAME, "id = ?", new String[]{String.valueOf(id)});
+        return r > 0;
     }
 
     private void applyCursor(NoteItem noteItem, Cursor c) {

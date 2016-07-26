@@ -10,7 +10,6 @@ import java.util.Locale;
 
 public class NoteItem {
 
-    private String key;
     private String title;
     private String description;
     long time;
@@ -18,16 +17,9 @@ public class NoteItem {
 
     public static final String TITLE = "title";
     public static final String DESC = "desc";
-    public static final String KEY = "key";
     public static final String ID = "id";
     public static final String TIME = "time";
 
-    public String getKey() {
-        return key;
-    }
-    public void setKey(String key) {
-        this.key = key;
-    }
     public String getTitle() {
         return title;
     }
