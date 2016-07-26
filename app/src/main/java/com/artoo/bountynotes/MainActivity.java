@@ -19,7 +19,6 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     public static final int EDITOR_ACTIVITY_REQUEST = 1001;
-    private NoteDataSource datasource;
     private List<NoteItem> notesList;
     private StaggeredGridLayoutManager sGridLayoutManager;
     private RecyclerView recyclerView;
@@ -29,8 +28,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-//        datasource=new NoteDataSource(this);
 
         dataHelper=new SQLiteDataHelper(this,"bounty");
         dataHelper.getReadableDatabase();
@@ -54,14 +51,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == EDITOR_ACTIVITY_REQUEST && resultCode == RESULT_OK) {
-//            NoteItem note = new NoteItem();
-//            note.setKey(data.getStringExtra(NoteItem.KEY));
-//            note.setId(data.getIntExtra(NoteItem.ID,1));
-//            note.setTitle(data.getStringExtra(NoteItem.TITLE));
-//            note.setDescription(data.getStringExtra(NoteItem.DESC));
-//            note.setTime(data.getStringExtra(NoteItem.DESC));
-//            dataHelper.updateData();
-//            datasource.update(note);
             refreshDisplay();
         }
     }
