@@ -59,28 +59,5 @@ public class NoteItem {
         this.id = id;
     }
 
-    @SuppressLint("SimpleDateFormat")
-    public static NoteItem getNew() {
-
-        Locale locale = new Locale("en_US");
-        Locale.setDefault(locale);
-
-        String pattern = "yyyy-MM-dd HH:mm:ss Z";
-        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
-        String key = formatter.format(new Date());
-
-        NoteItem note = new NoteItem();
-        note.setKey(key);
-        note.setTitle("");
-        note.setDescription("");
-        return note;
-
-    }
-
-    @Override
-    public String toString() {
-        return this.getTitle();
-    }
-
 }
 
