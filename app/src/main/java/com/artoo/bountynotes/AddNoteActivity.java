@@ -18,7 +18,6 @@ public class AddNoteActivity extends AppCompatActivity {
     private NoteItem note;
     private SQLiteDataHelper dataHelper;
     public static String INTENT_MODE_CREATE = "mode_create";
-    private boolean modeCreate;
     private int id = 1;
 
     @Override
@@ -30,10 +29,8 @@ public class AddNoteActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         dataHelper = new SQLiteDataHelper(this, "bounty");
         Intent intent = this.getIntent();
-        modeCreate = intent.getBooleanExtra(INTENT_MODE_CREATE, true);
         note = new NoteItem();
         id = intent.getIntExtra(NoteItem.ID, 1);
-//        note.setKey(intent.getStringExtra(NoteItem.KEY));
         note.setId(id);
         note.setTitle(intent.getStringExtra(NoteItem.TITLE));
         note.setDescription(intent.getStringExtra(NoteItem.DESC));
@@ -41,11 +38,10 @@ public class AddNoteActivity extends AppCompatActivity {
         etTitle = (EditText) findViewById(R.id.etTitle);
         etNote = (EditText) findViewById(R.id.etNote);
 
-        if (!modeCreate) {
-            etTitle.setText(note.getTitle());
-            etNote.setText(note.getDescription());
-            etNote.setSelection(note.getDescription().length());
-        }
+        etTitle.setText(note.getTitle());
+        etNote.setText(note.getDescription());
+        etNote.setSelection(note.getDescription().length());
+
     }
 
     private void doSave() {
@@ -55,13 +51,7 @@ public class AddNoteActivity extends AppCompatActivity {
         note.setDescription(desc);
         note.setTitle(title);
         note.setTime(new Date().getTime());
-        if (modeCreate) {
-            if (!desc.equals("") || !title.equals("")) {
-                id = (int) dataHelper.insertNote(note);
-            }
-        } else {
-            dataHelper.updateData(id, note);
-        }
+        dataHelper.updateData(id, note);
         finish();
     }
 

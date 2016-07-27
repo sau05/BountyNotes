@@ -22,7 +22,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements RecyclerItemClickListener.OnItemClickListener {
 
-    public static final int EDITOR_ACTIVITY_REQUEST = 1001;
     //    private NoteDataSource datasource;
     private List<NoteItem> notesList;
     private StaggeredGridLayoutManager sGridLayoutManager;
@@ -33,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
     private EditText etTitle, etNote;
     private NoteItem note;
     private boolean modeCreate;
-    private int id = 1;
+    private int id;
     private RecyclerViewAdapter mAdapter;
     private FloatingActionButton fab;
 
@@ -109,12 +108,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
         note.setDescription(desc);
         note.setTitle(title);
         note.setTime(new Date().getTime());
-        if (modeCreate) {
-            if (!desc.equals("") || !title.equals("")) {
-                id = (int) dataHelper.insertNote(note);
-            }
-        } else {
-            dataHelper.updateData(id, note);
+        if (!desc.equals("") || !title.equals("")) {
+            id = (int) dataHelper.insertNote(note);
         }
         reverseCrossfade();
         etNote.setText("");
@@ -124,14 +119,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
     private void crossfade() {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle("Add Note");
 
-        // Set the content view to 0% opacity but visible, so that it is visible
-        // (but fully transparent) during the animation.
         mContentView.setAlpha(0f);
         mContentView.setVisibility(View.VISIBLE);
 
-        // Animate the content view to 100% opacity, and clear any animation
-        // listener set on the view.
         mContentView.animate()
                 .alpha(1f)
                 .setDuration(mShortAnimationDuration)
@@ -161,6 +153,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
     private void reverseCrossfade() {
         getSupportActionBar().setDisplayShowHomeEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        setTitle(getString(R.string.app_name));
         recyclerView.setAlpha(0f);
         recyclerView.setVisibility(View.VISIBLE);
         recyclerView.animate()
@@ -187,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId()==android.R.id.home){
+        if (item.getItemId() == android.R.id.home) {
             onBackPressed();
         }
         return super.onOptionsItemSelected(item);
@@ -207,14 +200,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
     public void onItemClick(View childView, int position) {
         NoteItem note = notesList.get(position);
         Intent intent = new Intent(MainActivity.this, AddNoteActivity.class);
-//            intent.putExtra(NoteItem.KEY, note.getKey());
         intent.putExtra(NoteItem.ID, note.getId());
         intent.putExtra(NoteItem.TITLE, note.getTitle());
         intent.putExtra(NoteItem.DESC, note.getDescription());
         intent.putExtra(NoteItem.TIME, note.getTime());
-        intent.putExtra(AddNoteActivity.INTENT_MODE_CREATE, false);
         startActivity(intent);
-//        startActivityForResult(intent, MainActivity.EDITOR_ACTIVITY_REQUEST);
     }
 
     @Override
