@@ -1,4 +1,4 @@
-package com.artoo.bountynotes;
+package com.saurabh.bountynotes;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,7 +7,8 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.artoo.bountynotes.data.NoteItem;
+import com.artoo.bountynotes.R;
+import com.saurabh.bountynotes.data.NoteItem;
 
 import java.util.Date;
 

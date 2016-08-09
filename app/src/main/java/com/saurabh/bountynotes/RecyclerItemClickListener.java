@@ -1,4 +1,4 @@
-package com.artoo.bountynotes;
+package com.saurabh.bountynotes;
 
 import android.content.Context;
 import android.support.annotation.Nullable;

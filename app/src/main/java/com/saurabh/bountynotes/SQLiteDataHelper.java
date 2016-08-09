@@ -1,4 +1,4 @@
-package com.artoo.bountynotes;
+package com.saurabh.bountynotes;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.artoo.bountynotes.data.NoteItem;
+import com.saurabh.bountynotes.data.NoteItem;
 
 import java.util.ArrayList;
 import java.util.Collections;

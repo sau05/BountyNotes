@@ -1,20 +1,15 @@
-package com.artoo.bountynotes;
+package com.saurabh.bountynotes;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.annotation.UiThread;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
-import com.artoo.bountynotes.data.NoteItem;
+import com.artoo.bountynotes.R;
+import com.saurabh.bountynotes.data.NoteItem;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -48,7 +43,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(SimpleViewHolder holder, int position) {
         holder.mTitle.setText(notesList.get(position).getTitle());
         holder.mDesc.setText(notesList.get(position).getDescription());
-        SimpleDateFormat dateFormat=new SimpleDateFormat("dd MMM", Locale.US);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM", Locale.US);
         holder.mDate.setText(dateFormat.format(notesList.get(position).getTime()));
         holder.itemView.setLongClickable(true);
     }

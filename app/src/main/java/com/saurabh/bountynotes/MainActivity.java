@@ -1,4 +1,4 @@
-package com.artoo.bountynotes;
+package com.saurabh.bountynotes;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -15,7 +15,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
-import com.artoo.bountynotes.data.NoteItem;
+import com.artoo.bountynotes.R;
+import com.saurabh.bountynotes.data.NoteItem;
 
 import java.util.Date;
 import java.util.List;

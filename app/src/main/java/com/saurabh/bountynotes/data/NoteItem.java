@@ -1,4 +1,4 @@
-package com.artoo.bountynotes.data;
+package com.saurabh.bountynotes.data;
 import android.annotation.SuppressLint;
 import java.text.SimpleDateFormat;
 import java.util.Date;
